@@ -1,70 +1,64 @@
 const Article = require("../models/Article");
 
-// Create article
+// CREATE
 exports.createArticle = async (req, res) => {
   try {
     const article = await Article.create(req.body);
     res.status(201).json(article);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
   }
 };
 
-// Get all articles
+// GET ALL — LIMITED TO 5 ✅
 exports.getAllArticles = async (req, res) => {
   try {
-    const articles = await Article.find().sort({ createdAt: -1 });
+    const articles = await Article.find()
+      .sort({ createdAt: -1 })
+      .limit(5); // ✅ ONLY FIVE ARTICLES
+
     res.status(200).json(articles);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 };
 
-// Get single article
+// GET ONE
 exports.getArticleById = async (req, res) => {
   try {
     const article = await Article.findById(req.params.id);
     if (!article) {
-      return res.status(404).json({ message: "Article not found" });
+      return res.status(404).json({ error: "Article not found" });
     }
-    res.status(200).json(article);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.json(article);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 };
 
-// Update article
+// UPDATE
 exports.updateArticle = async (req, res) => {
   try {
-    console.log("HEADERS:", req.headers);
-    console.log("BODY:", req.body);
+    const { updatedContent, references, isUpdated } = req.body;
 
     const article = await Article.findByIdAndUpdate(
       req.params.id,
-      { $set: req.body },
+      { updatedContent, references, isUpdated },
       { new: true }
     );
 
-    if (!article) {
-      return res.status(404).json({ message: "Article not found" });
-    }
-
-    res.status(200).json(article);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.json(article);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 };
 
-
-// Delete article
+// DELETE
 exports.deleteArticle = async (req, res) => {
   try {
-    const article = await Article.findByIdAndDelete(req.params.id);
-    if (!article) {
-      return res.status(404).json({ message: "Article not found" });
-    }
-    res.status(200).json({ message: "Article deleted successfully" });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+    await Article.findByIdAndDelete(req.params.id);
+    res.json({ message: "Article deleted" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 };
