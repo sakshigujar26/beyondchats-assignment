@@ -1,81 +1,53 @@
-# BeyondChats Full Stack Assignment
+# BeyondChats Blog Automation Platform
 
-This repository contains my submission for the **BeyondChats – Full Stack Web Developer Intern Assignment**.  
-The project demonstrates scraping, backend APIs, automation using scripts, and a simple React frontend.
+This project is a full-stack application built as part of the BeyondChats assignment.
 
----
-
-## Tech Stack
-
-- **Backend:** Node.js, Express.js
-- **Database:** MongoDB
-- **Frontend:** React.js
-- **APIs & Tools:** Axios, Cheerio, Serper API, LLM API
+It scrapes blog articles, stores them in a database, enhances content using AI, and displays them through a React frontend.
 
 ---
 
-## Phase 1: Blog Scraping & CRUD APIs
+## 🚀 Features
 
-- Scraped the **5 oldest blog articles** from the BeyondChats blog section.
-- Extracted article title and full content.
-- Stored articles in MongoDB.
-- Implemented full **CRUD APIs** for articles:
-  - Create article
-  - Get all articles
-  - Get article by ID
-  - Update article
-  - Delete article
+- Scrapes blog articles from BeyondChats website
+- Stores articles in MongoDB
+- Supports CRUD operations on articles
+- AI-enhanced article content (optional update flow)
+- Displays original and updated articles
+- Clean, simple React UI
 
 ---
 
-## Phase 2: Article Enrichment Script
+## 🛠 Tech Stack
 
-- Fetches articles from backend APIs.
-- Searches the article title on Google using **Serper API**.
-- Fetches the top 2 ranking related articles.
-- Scrapes content from those articles.
-- Uses an **LLM API** to rewrite and improve the original article content.
-- Updates the article using backend APIs.
-- Stores reference links used to generate the updated content.
+### Backend
+- Node.js
+- Express.js
+- MongoDB
+- Axios
+- Cheerio
 
----
-
-## Phase 3: Frontend (React)
-
-- Displays articles in a clean, simple, and responsive UI.
-- Shows both **original** and **updated** article content.
-- Includes **Read More / Show Less** functionality.
-- Displays reference links for updated articles.
-- Limited to showing **5 articles** as per task requirement.
+### Frontend
+- React (Create React App)
+- Axios
+- React Markdown
 
 ---
 
-## Project Structure
+## 📂 Project Structure
 
 beyondchats-assignment/
-├── backend/
-│ ├── src/
-│ │ ├── controllers/
-│ │ ├── models/
-│ │ ├── routes/
-│ │ └── utils/
-│ └── package.json
 │
-├── scripts/
-│ └── phase2/
-│
-├── frontend/
-│ ├── src/
-│ └── package.json
-│
+├── backend/ # Express + MongoDB API
+├── frontend/ # React frontend
+├── scripts/ # Scraper & AI scripts
 └── README.md
 
 
 ---
 
-## How to Run the Project Locally
+## ▶️ How to Run Locally
 
-### Backend
+### 1️⃣ Backend Setup
 
 ```bash
 cd backend
@@ -86,7 +58,7 @@ Backend runs on:
 
 http://localhost:5000
 
-Frontend
+2️⃣ Frontend Setup
 
 cd frontend
 npm install
@@ -96,12 +68,38 @@ Frontend runs on:
 
 http://localhost:3000
 
-Environment Variables
+🌐 Live Demo
 
-Create a .env file in the backend folder:
+Frontend deployed on Vercel:
 
-PORT=5000
-MONGO_URI=your_mongodb_connection_string
-SERPER_API_KEY=your_serper_api_key
-OPENAI_API_KEY=your_openai_api_key
+👉 https://beyondchats-frontend-henna.vercel.app
+
+Note:
+The backend API is not deployed to the cloud.
+To view articles, please run the backend locally as described above.
+⚠️ Important Notes
+
+    Only 5 articles are intentionally fetched as per assignment requirement
+
+    Backend APIs are fully functional locally
+
+    UI focuses on simplicity and readability
+
+    Default CRA README was replaced intentionally
+
+✅ Assignment Status
+
+Scraper implemented
+
+Backend APIs complete
+
+Frontend connected
+
+Live demo deployed
+
+    README documented
+
+👤 Author
+
+Sakshi Gujar
 

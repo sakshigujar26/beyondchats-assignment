@@ -2,13 +2,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import ArticleCard from "./components/ArticleCard";
 import "./App.css";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-
 
 function App() {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [apiError, setApiError] = useState(false);
 
   useEffect(() => {
     axios
@@ -17,14 +15,27 @@ function App() {
         setArticles(res.data);
         setLoading(false);
       })
-      .catch(err => {
-        console.error(err);
+      .catch(() => {
+        setApiError(true);
         setLoading(false);
       });
   }, []);
 
   if (loading) {
     return <h2 style={{ textAlign: "center" }}>Loading articles...</h2>;
+  }
+
+  if (apiError) {
+    return (
+      <div className="container">
+        <h1>BeyondChats Blog Articles</h1>
+        <p style={{ textAlign: "center", marginTop: "40px" }}>
+          Backend API is not deployed.
+          <br />
+          Please run the backend locally to view articles.
+        </p>
+      </div>
+    );
   }
 
   return (
